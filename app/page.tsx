@@ -1,40 +1,70 @@
-"use client"
-import { useEffect, useState } from 'react'
+"use client";
+import { useEffect, useState } from "react";
+import { parseStringPromise } from "xml2js";
 
-export interface Posts {
-  id: string
-  content: string
+export interface Post {
+  title: string;
+  description: string;
+  content: string;
+  link: string;
 }
 
 export default function Home() {
-  const [data, setData] = useState<Posts[]>([])
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function loadData() {
+    async function fetchRSS() {
       try {
-        const response = await fetch('/api/data')
+        const response = await fetch("/api/rss");
         if (!response.ok) {
-          console.error('Failed to fetch data:', response.statusText)
-          return
+          console.error("Failed to fetch RSS:", response.statusText);
+          return;
         }
-        const fetchedData = await response.json()
-        setData(fetchedData)
+
+        const xmlData = await response.text();
+        const result = await parseStringPromise(xmlData);
+        console.log("Parsed XML:", result);
+
+        const entries = result?.feed?.entry || [];
+        const formattedPosts = entries.map((entry: any) => ({
+          title: entry.title?.[0]?._ || "No title",
+          description: entry.summary?.[0]?._ || "No description",
+          content: entry.content?.[0]?._ || "No content available", // İçeriği ekle
+          link: entry.link?.[0]?.$?.href || "#",
+        }));
+
+        setPosts(formattedPosts);
       } catch (error) {
-        console.error('Error fetching data:', error)
+        console.error("Error fetching RSS:", error);
+      } finally {
+        setLoading(false);
       }
     }
-    loadData()
-  }, [])
+
+    fetchRSS();
+  }, []);
 
   return (
     <div>
-      <h1>Posts</h1>
-      {data.length > 0 ? (
+      <h1>RSS Posts</h1>
+      {loading ? (
+        <p>Loading posts...</p>
+      ) : posts.length > 0 ? (
         <ul>
-          {data.map((post) => (
-            <li key={post.id}>
-              <h2>{post.id}</h2>
-              <p>{post.content}</p>
+          {posts.map((post, index) => (
+            <li key={index}>
+              <h2>{post.title}</h2>
+              <p>
+                <strong>Summary:</strong> {post.description}
+              </p>
+              <div>
+                <strong>Content:</strong>
+                <p dangerouslySetInnerHTML={{ __html: post.content }}></p>
+              </div>
+              <a href={post.link} target="_blank" rel="noopener noreferrer">
+                Read more
+              </a>
             </li>
           ))}
         </ul>
@@ -42,5 +72,5 @@ export default function Home() {
         <p>No posts available</p>
       )}
     </div>
-  )
+  );
 }
