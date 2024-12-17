@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<h1 align=center>Geeky Nextjs</h1>
+<p align=center>Geeky is a free NextJs personal blog template</p>
+<h2 align="center"> <a target="_blank" href="https://geeky-nextjs.vercel.app/" rel="nofollow">Demo</a> | <a  target="_blank" href="https://pagespeed.web.dev/report?url=https%3A%2F%2Fgeeky-nextjs.vercel.app%2F&form_factor=desktop">Page Speed (100%)</a>
+</h2>
 
-## Getting Started
+<p align=center>
+  <a href="https://github.com/vercel/next.js/releases/tag/v13.0.6" alt="Contributors">
+    <img src="https://img.shields.io/static/v1?label=NEXTJS&message=13.0&color=000&logo=nextjs" />
+  </a>
 
-First, run the development server:
+  <a href="https://github.com/statichunt/geeky-nextjs/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/statichunt/geeky-nextjs" alt="license"></a>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+  <img src="https://img.shields.io/github/languages/code-size/statichunt/geeky-nextjs" alt="code size">
+
+  <a href="https://github.com/statichunt/geeky-nextjs/graphs/contributors">
+    <img src="https://img.shields.io/github/contributors/statichunt/geeky-nextjs" alt="contributors"></a>
+</p>
+
+![geeky](https://statichunt.com/themes/nextjs-geeky.png)
+
+## Key Features
+
+- Google Page Speed score 100! (Desktop)
+- Supports Contact Form
+- Disqus Comment Support
+- Related Posts Suggestion
+- MDX Support with many built-in custom components
+- Semantic HTML Document Structure
+- Custom Logo Support
+- Includes All SCSS Files
+- Taxonomy Page Support
+- Images Optimized With Next/image
+
+<!-- installation -->
+## Installation
+
+After downloading the template, you have some prerequisites to install. Then you can run it on your localhost. You can view the package.json file to see which scripts are included.
+
+### Install prerequisites (once for a machine)
+
+- **Node Installation:** [Install node js](https://nodejs.org/en/download/) [Recommended LTS version]
+
+### Local setup
+
+After successfully installing those dependencies, open this template with any IDE [[VS Code](https://code.visualstudio.com/) recommended], and then open the internal terminal of IDM [vs code shortcut <code>ctrl/cmd+\`</code>]
+
+- Install dependencies
+
+```
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Run locally
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+After that, it will open up a preview of the template in your default browser, watch for changes to source files, and live-reload the browser when changes are saved.
 
-## Learn More
+## Production Build
 
-To learn more about Next.js, take a look at the following resources:
+After finishing all the customization, you can create a production build by running this command.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+npm run build
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+<!-- reporting issue -->
+## Reporting Issues
 
-## Deploy on Vercel
+We use GitHub Issues as the official bug tracker for this Template. Please Search [existing issues](https://github.com/statichunt/geeky-nextjs/issues). It’s possible someone has already reported the same problem.
+If your problem or idea has not been addressed yet, feel free to [open a new issue](https://github.com/statichunt/geeky-nextjs/issues).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+<!-- licence -->
+## License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Copyright (c) 2019 - Present, Designed & Developed by [statichunt](https://statichunt.com)
+
+**Code License:** Released under the [MIT](https://github.com/statichunt/geeky-nextjs/blob/main/LICENSE) license.
+
+**Image license:** The images are only for demonstration purposes. They have their license, we don't have permission to share those images.
