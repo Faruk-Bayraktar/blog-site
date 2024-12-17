@@ -1,83 +1,69 @@
-<h1 align=center>Geeky Nextjs</h1>
-<p align=center>Geeky is a free NextJs personal blog template</p>
-<h2 align="center"> <a target="_blank" href="https://geeky-nextjs.vercel.app/" rel="nofollow">Demo</a> | <a  target="_blank" href="https://pagespeed.web.dev/report?url=https%3A%2F%2Fgeeky-nextjs.vercel.app%2F&form_factor=desktop">Page Speed (100%)</a>
-</h2>
+The Open Blog is a open source template is design and built with Next.js 15, Shadcn UI and tailwind CSS. 
 
-<p align=center>
-  <a href="https://github.com/vercel/next.js/releases/tag/v13.0.6" alt="Contributors">
-    <img src="https://img.shields.io/static/v1?label=NEXTJS&message=13.0&color=000&logo=nextjs" />
-  </a>
+Take a look at the demo of the Minimalist template!
 
-  <a href="https://github.com/statichunt/geeky-nextjs/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/statichunt/geeky-nextjs" alt="license"></a>
+## Demo
 
-  <img src="https://img.shields.io/github/languages/code-size/statichunt/geeky-nextjs" alt="code size">
+[![Demo](/.github/open-blog-demo.gif)](https://open-blog-beta.vercel.app/)
 
-  <a href="https://github.com/statichunt/geeky-nextjs/graphs/contributors">
-    <img src="https://img.shields.io/github/contributors/statichunt/geeky-nextjs" alt="contributors"></a>
-</p>
+## Our Template Stack
 
-![geeky](https://statichunt.com/themes/nextjs-geeky.png)
+![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Markdown](https://img.shields.io/badge/markdown-%23000000.svg?style=for-the-badge&logo=markdown&logoColor=white)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![Shadcn UI](https://img.shields.io/badge/Shadcn/ui-white.svg?&logo=data:image/svg+xml;base64,PHN2ZyByb2xlPSJpbWciIHZpZXdCb3g9IjAgMCAyNCAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGU+c2hhZGNuL3VpPC90aXRsZT48cGF0aCBkPSJNMjIuMjE5IDExLjc4NCAxMS43ODQgMjIuMjE5Yy0uNDA3LjQwNy0uNDA3IDEuMDY4IDAgMS40NzYuNDA3LjQwNyAxLjA2OC40MDcgMS40NzYgMEwyMy42OTUgMTMuMjZjLjQwNy0uNDA4LjQwNy0xLjA2OSAwLTEuNDc2LS40MDgtLjQwNy0xLjA2OS0uNDA3LTEuNDc2IDBaTTIwLjEzMi4zMDUuMzA1IDIwLjEzMmMtLjQwNy40MDctLjQwNyAxLjA2OCAwIDEuNDc2LjQwOC40MDcgMS4wNjkuNDA3IDEuNDc2IDBMMjEuNjA4IDEuNzgxYy40MDctLjQwNy40MDctMS4wNjggMC0xLjQ3Ni0uNDA4LS40MDctMS4wNjktLjQwNy0xLjQ3NiAwWiIvPjwvc3ZnPg==)
 
-## Key Features
+## Pictures
 
-- Google Page Speed score 100! (Desktop)
-- Supports Contact Form
-- Disqus Comment Support
-- Related Posts Suggestion
-- MDX Support with many built-in custom components
-- Semantic HTML Document Structure
-- Custom Logo Support
-- Includes All SCSS Files
-- Taxonomy Page Support
-- Images Optimized With Next/image
+![Home](./.github/open-blog.png)
 
-<!-- installation -->
-## Installation
+![Reading Page](./.github/open-blog-read.png)
 
-After downloading the template, you have some prerequisites to install. Then you can run it on your localhost. You can view the package.json file to see which scripts are included.
+![Tag Page](./.github/open-blog-tag.png)
 
-### Install prerequisites (once for a machine)
+![Search Page](./.github/open-blog-search.png)
 
-- **Node Installation:** [Install node js](https://nodejs.org/en/download/) [Recommended LTS version]
+![Card List](./.github/open-blog-card-list.png)
 
-### Local setup
 
-After successfully installing those dependencies, open this template with any IDE [[VS Code](https://code.visualstudio.com/) recommended], and then open the internal terminal of IDM [vs code shortcut <code>ctrl/cmd+\`</code>]
+## Clone Repository
 
-- Install dependencies
+First, download the Next.js open blog template code from the GitHub repository using the following command:
 
+```bash
+git clone git clone https://github.com/frontendweb3/open-blog.git
 ```
-npm install
-```
+Then follow the below **steps**:
 
-- Run locally
+```markdown
+# step 1
+cd open-blog
 
-```
-npm run dev
+# step 2
+pnpm install
+#  or 
+yarn install
+
+# step 3
+yarn dev
+#    or
+pnpm dev
 ```
 
-After that, it will open up a preview of the template in your default browser, watch for changes to source files, and live-reload the browser when changes are saved.
 
-## Production Build
+### Our primary stack for the Open Blog template includes:
 
-After finishing all the customization, you can create a production build by running this command.
+1. Next.js
+2. TypeScript
+3. PNPM
+4. Shadcn UI
+5. Tailwind CSS
 
-```
-npm run build
-```
+## Additional packages:
 
-<!-- reporting issue -->
-## Reporting Issues
+1. Lucide icons
+2. @tailwindcss/typography
+3. fuse.js
 
-We use GitHub Issues as the official bug tracker for this Template. Please Search [existing issues](https://github.com/statichunt/geeky-nextjs/issues). It’s possible someone has already reported the same problem.
-If your problem or idea has not been addressed yet, feel free to [open a new issue](https://github.com/statichunt/geeky-nextjs/issues).
-
-<!-- licence -->
-## License
-
-Copyright (c) 2019 - Present, Designed & Developed by [statichunt](https://statichunt.com)
-
-**Code License:** Released under the [MIT](https://github.com/statichunt/geeky-nextjs/blob/main/LICENSE) license.
-
-**Image license:** The images are only for demonstration purposes. They have their license, we don't have permission to share those images.
+After downloading, open your browser and navigate to [http://localhost:3000](http://localhost:3000) to see the result.
