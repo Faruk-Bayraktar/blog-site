@@ -1,12 +1,12 @@
 "use client";
-import { useEffect, useState } from "react";
+
+import React, { useState, useEffect } from "react";
 import { parseStringPromise } from "xml2js";
+import Card from "@/components/Card";
 
 export interface Post {
   title: string;
-  description: string;
-  content: string;
-  link: string;
+  images: string[]; // Sadece img URL'lerini tutacak
 }
 
 export default function Home() {
@@ -24,15 +24,17 @@ export default function Home() {
 
         const xmlData = await response.text();
         const result = await parseStringPromise(xmlData);
-        console.log("Parsed XML:", result);
 
         const entries = result?.feed?.entry || [];
-        const formattedPosts = entries.map((entry: any) => ({
-          title: entry.title?.[0]?._ || "No title",
-          description: entry.summary?.[0]?._ || "No description",
-          content: entry.content?.[0]?._ || "No content available", // İçeriği ekle
-          link: entry.link?.[0]?.$?.href || "#",
-        }));
+        const formattedPosts = entries.map((entry: any) => {
+          const rawContent = entry.content?.[0]?._ || "";
+          const imgUrls = extractImageUrls(rawContent);
+
+          return {
+            title: entry.title?.[0]?._ || "No title",
+            images: imgUrls,
+          };
+        });
 
         setPosts(formattedPosts);
       } catch (error) {
@@ -45,32 +47,29 @@ export default function Home() {
     fetchRSS();
   }, []);
 
+  // İçeriği analiz ederek img etiketlerini ve src değerlerini ayıklayan fonksiyon
+  function extractImageUrls(content: string): string[] {
+    const imgRegex = /<img[^>]+src=["']([^"']+)["']/g;
+    const imgUrls: string[] = [];
+    let match;
+
+    while ((match = imgRegex.exec(content)) !== null) {
+      imgUrls.push(match[1]); // src değerini listeye ekle
+    }
+
+    return imgUrls;
+  }
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div>
-      <h1>RSS Posts</h1>
-      {loading ? (
-        <p>Loading posts...</p>
-      ) : posts.length > 0 ? (
-        <ul>
-          {posts.map((post, index) => (
-            <li key={index}>
-              <h2>{post.title}</h2>
-              <p>
-                <strong>Summary:</strong> {post.description}
-              </p>
-              <div>
-                <strong>Content:</strong>
-                <p dangerouslySetInnerHTML={{ __html: post.content }}></p>
-              </div>
-              <a href={post.link} target="_blank" rel="noopener noreferrer">
-                Read more
-              </a>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No posts available</p>
-      )}
+
+    <div className="container my-12 mx-auto grid grid-cols-1 gap-2 md:gap-3 lg:gap-4 lg:grid-cols-3 md:grid-cols-2 xl:grid-cols-4 2xl:grid-cols-4">
+      {posts.map((post, index) => (
+        <Card key={index} title={post.title} images={post.images} />
+      ))}
     </div>
   );
 }

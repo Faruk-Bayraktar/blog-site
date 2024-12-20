@@ -21,7 +21,8 @@ export function Header() {
               <Link href="/about">
                 <Button>Burada 2 3 link olsun. Linklerin en saginda menu. Acilan menude de tum linkler gozukecek. Link olayini da dizide tut ve map ile tek tek yazdir  </Button>
               </Link>
-            </li> <li>
+            </li>
+            <li>
               <Link href="/about">
                 <Button>Son Dakika</Button>
               </Link>
@@ -35,27 +36,33 @@ export function Header() {
               <Link href="/posts">
                 <Button>Ekonomi</Button>
               </Link>
-            </li><li>
+            </li>
+            <li>
               <Link href="/posts">
                 <Button>Dunya</Button>
               </Link>
-            </li><li>
+            </li>
+            <li>
               <Link href="/posts">
                 <Button>Spor</Button>
               </Link>
-            </li><li>
+            </li>
+            <li>
               <Link href="/posts">
                 <Button>Teknoloji</Button>
               </Link>
-            </li><li>
+            </li>
+            <li>
               <Link href="/posts">
                 <Button>Saglik</Button>
               </Link>
-            </li><li>
+            </li>
+            <li>
               <Link href="/posts">
                 <Button>Otomobil</Button>
               </Link>
-            </li><li>
+            </li>
+            <li>
               <Link href="/posts">
                 <Button>Anketler</Button>
               </Link>

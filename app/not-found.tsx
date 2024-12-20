@@ -4,7 +4,7 @@ import Link from "next/link"
 
 export default function NotFound() {
 
-  return (
+  return <>
     <section className="my-16">
       <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
         <div className="mx-auto max-w-screen-sm text-center">
@@ -19,5 +19,5 @@ export default function NotFound() {
         </div>
       </div>
     </section>
-  )
+  </>
 }
