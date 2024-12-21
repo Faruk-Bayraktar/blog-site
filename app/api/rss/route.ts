@@ -1,30 +1,43 @@
-import { NextResponse } from "next/server";
+// filepath: /app/api/rss/route.ts
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
-  const RSS_URL = "https://www.ntv.com.tr/son-dakika.rss";
+const RSS_FEEDS: { [key: string]: string } = {
+  ekonomi: "https://www.ntv.com.tr/ekonomi.rss",
+  dunya: "https://www.ntv.com.tr/dunya.rss",
+  egitim: "https://www.ntv.com.tr/egitim.rss",
+  spor: "https://www.ntv.com.tr/spor.rss",
+  teknoloji: "https://www.ntv.com.tr/teknoloji.rss",
+  saglik: "https://www.ntv.com.tr/saglik.rss",
+  otomobil: "https://www.ntv.com.tr/otomobil.rss",
+  sondakika: "https://www.ntv.com.tr/son-dakika.rss",
+};
+
+export async function GET(req: NextRequest) {
+  const category = req.nextUrl.searchParams.get("category");
+
+  if (!category || !RSS_FEEDS[category]) {
+    return NextResponse.json(
+      { error: "Geçersiz kategori veya RSS URL'si." },
+      { status: 400 }
+    );
+  }
 
   try {
-    const response = await fetch(RSS_URL);
+    const response = await fetch(RSS_FEEDS[category]);
     if (!response.ok) {
-      return NextResponse.json(
-        { error: "Failed to fetch RSS" },
-        { status: response.status }
-      );
+      throw new Error(`RSS alınamadı: ${response.statusText}`);
     }
 
-    let xmlData = await response.text();
+    const xmlData = await response.text();
 
-    // Özel karakterleri düzelt
-    xmlData = xmlData.replace(/&(?!amp;|lt;|gt;|quot;|apos;)/g, "&amp;");
+    // Özel karakter hatalarını düzeltelim.
+    const sanitizedData = xmlData.replace(/&(?!amp;|lt;|gt;|quot;|apos;)/g, "&amp;");
 
-    return new Response(xmlData, {
-      headers: {
-        "Content-Type": "application/xml",
-      },
-    });
-  } catch (error) {
+    return NextResponse.json({ data: sanitizedData }, { status: 200 });
+  } catch (error: any) {
+    console.error("API Proxy Hatası:", error.message);
     return NextResponse.json(
-      { error: "Internal Server Error" },
+      { error: "RSS beslemesi alınamadı.", detail: error.message },
       { status: 500 }
     );
   }
