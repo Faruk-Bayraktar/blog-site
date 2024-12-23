@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { parseStringPromise } from "xml2js";
 import Card from "@/components/Card";
+import Loading from "./Loading";
 
 export interface Post {
     title: string;
@@ -90,7 +91,7 @@ export default function PageTemplate({ category }: PageTemplateProps) {
     }
 
     if (loading) {
-        return <div>Yükleniyor...</div>;
+        return <Loading />;
     }
 
     if (error) {
