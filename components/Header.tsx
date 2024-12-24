@@ -145,7 +145,7 @@ export function Header() {
             <li>
               <Button onClick={() => setMenuOpen(!menuOpen)}>Menu</Button>
               {menuOpen && (
-                <ul className="absolute bg-white shadow-md">
+                <ul className="absolute bg-white shadow-md z-50">
                   {links.slice(4).map((link, index) => (
                     <li key={index}>
                       <Link href={link.href}>

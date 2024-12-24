@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Github, Facebook, Instagram, Twitter, Linkedin } from "@/components/icons"
 import * as React from "react"
-import { Button } from "@/components/ui/button"
+import { Button } from "./ui/button";
 
 
 export function Footer() {

@@ -1,12 +1,34 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+html {
+  /* Varsayılan temaya göre renk geçişlerini ekleyin */
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+:root {
+  --font-geist-sans: 'GeistSans', sans-serif;
+  --font-geist-mono: 'GeistMono', monospace;
+
+  --background-light: 0 0% 100%;
+  --background-dark: 220 13% 18%;
+}
+
+body {
+  background-color: hsl(var(--background-light));
+}
+
+html.dark body {
+  background-color: hsl(var(--background-dark));
+}
 
 @layer components {
   .border-border {
     border-color: hsl(var(--border));
   }
 }
+
+
 @layer base {
   :root {
     --background: 0 0% 100%;
