@@ -15,7 +15,7 @@ export default function Home() {
 
   return (
     <div>
-      <PageTemplate category="sondakika" />
+      <PageTemplate category="anasayfa" />
     </div>
   );
 }

@@ -4,8 +4,12 @@ import React, { useState, useEffect } from "react";
 import { parseStringPromise } from "xml2js";
 import Card from "@/components/Card";
 import Loading from "./Loading";
+import { BrowserRouter as Router, Route, Link, Routes, BrowserRouter } from 'react-router-dom';
+import CardDetail from '../app/CardDetail'
 import { FaArrowLeft, FaArrowRight, FaArrowUp, FaArrowDown } from 'react-icons/fa';
+import { useParams, useRouter } from "next/navigation";
 export interface Post {
+    cardId: string; // Benzersiz cardId
     title: string;
     images: string[];
     content: string;
@@ -16,6 +20,9 @@ interface PageTemplateProps {
 }
 
 export default function PageTemplate({ category }: PageTemplateProps) {
+    const { cat } = useParams<{ cat: string }>();
+
+
     const [posts, setPosts] = useState<Post[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
@@ -38,7 +45,6 @@ export default function PageTemplate({ category }: PageTemplateProps) {
 
                 const { data: xmlData } = await response.json();
 
-                console.log("Gelen Atom XML:", xmlData); // XML yapısını kontrol edin
 
                 const result = await parseStringPromise(xmlData, {
                     explicitArray: false,
@@ -53,7 +59,8 @@ export default function PageTemplate({ category }: PageTemplateProps) {
                 // Eğer tek bir `entry` varsa, onu diziye dönüştür
                 const items = Array.isArray(entries) ? entries : [entries];
 
-                const formattedPosts = items.map((item: any) => ({
+                const formattedPosts = items.map((item: any, index: number) => ({
+                    cardId: `card-${index}`,
                     // title'ın metin olarak işlendiğinden emin olun
                     title: typeof item.title === "string" ? item.title : item.title?._ || "Başlık yok",
 
@@ -119,36 +126,52 @@ export default function PageTemplate({ category }: PageTemplateProps) {
         setRandomTitleIndex((prevIndex) => (prevIndex + 1) % posts.length);
     };
 
+
+
     return (
-        <div>
-            <div className="flex justify-center my-4 items-center relative w-full">
-                <div className="relative w-6/12 h-auto mx-2">
-                    <img src={posts.slice(0, 5)[currentImageIndex].images[0]} alt={`Image ${currentImageIndex + 1}`} className="w-full h-auto" />
-                    <div className="absolute bottom-0 left-0 bg-black bg-opacity-50 text-white p-2 w-full text-center">
-                        {posts.slice(0, 5)[currentImageIndex].title}
+        <Router>
+            <Routes>
+                <Route path="/posts/:cat" element={
+                    <div>
+                        <div className="flex justify-center my-4 items-center relative w-full">
+                            <div className="relative w-6/12 h-auto mx-2">
+                                <Link to={`/post/${posts.slice(0, 5)[currentImageIndex].cardId}`}>
+                                    <img src={posts.slice(0, 5)[currentImageIndex].images[0]} alt={`Image ${currentImageIndex + 1}`} className="w-full h-auto" />
+                                </Link>
+                                <div className="absolute bottom-0 left-0 bg-black bg-opacity-50 text-white p-2 w-full text-center">
+                                    {posts.slice(0, 5)[currentImageIndex].title}
+                                </div>
+                                <button onClick={handlePrevClick} className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-4 rounded-full">
+                                    <FaArrowLeft />
+                                </button>
+                                <button onClick={handleNextClick} className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-4 rounded-full">
+                                    <FaArrowRight />
+                                </button>
+                            </div>
+                        </div>
+                        <div className="w-7/12 mx-auto my-4 bg-gray-200 p-2 text-center relative">
+                            <button onClick={handleTitlePrevClick} className="mx-10 absolute left-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full">
+                                <FaArrowUp />
+                            </button>
+                            {posts.length > 0 && posts[randomTitleIndex].title}
+                            <button onClick={handleTitleNextClick} className="mx-1 absolute left-0 bottom-1/2 transform translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full">
+                                <FaArrowDown />
+                            </button>
+                        </div>
+                        <div className="w-7/12 my-12 mx-auto grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
+                            {posts.slice(5).map((post) => (
+                                <Link to={`/post/${post.cardId}`} key={post.cardId}>
+                                    <div className="transform transition-transform duration-300 hover:scale-105">
+                                        <Card title={post.title} images={post.images} />
+                                    </div>
+                                </Link>
+                            ))}
+                        </div>
                     </div>
-                    <button onClick={handlePrevClick} className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-4 rounded-full">
-                        <FaArrowLeft />
-                    </button>
-                    <button onClick={handleNextClick} className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-4 rounded-full">
-                        <FaArrowRight />
-                    </button>
-                </div>
-            </div>
-            <div className="w-7/12 mx-auto my-4 bg-gray-200 p-2 text-center relative">
-                <button onClick={handleTitlePrevClick} className="mx-10 absolute left-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full">
-                    <FaArrowUp />
-                </button>
-                {posts.length > 0 && posts[randomTitleIndex].title}
-                <button onClick={handleTitleNextClick} className="mx-1 absolute left-0 bottom-1/2 transform translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full">
-                    <FaArrowDown />
-                </button>
-            </div>
-            <div className="w-7/12 my-12 mx-auto grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
-                {posts.slice(5).map((post, index) => (
-                    <Card key={index} title={post.title} images={post.images} />
-                ))}
-            </div>
-        </div>
+                } />
+
+                <Route path="/post/:id" element={<CardDetail posts={posts} />} />
+            </Routes>
+        </Router>
     );
 }

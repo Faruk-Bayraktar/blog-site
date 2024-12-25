@@ -13,7 +13,7 @@ export default function NotFound() {
           <p className="mb-4 text-lg font-light ">
             Sorry, we can't find that article. You'll find lots to explore on the home page.
           </p>
-          <Link href={"/"}>
+          <Link href={"/posts/anasayfa"}>
             <Button > <House /> Back to Homepage </Button>
           </Link>
         </div>

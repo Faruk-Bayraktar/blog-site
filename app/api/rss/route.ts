@@ -10,6 +10,7 @@ const RSS_FEEDS: { [key: string]: string } = {
   saglik: "https://www.ntv.com.tr/saglik.rss",
   otomobil: "https://www.ntv.com.tr/otomobil.rss",
   sondakika: "https://www.ntv.com.tr/son-dakika.rss",
+  anasayfa: "https://www.ntv.com.tr/gundem.rss",
 };
 
 export async function GET(req: NextRequest) {
