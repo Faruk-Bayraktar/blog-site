@@ -177,7 +177,9 @@ const PageTemplateContent: React.FC<PageTemplateProps> = ({ category }) => {
           className="mx-10 absolute left-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full">
           <FaArrowUp />
         </button>
-        {posts.length > 0 && posts[randomTitleIndex].title}
+        <button onClick={() => window.location.href = `/post/${posts[randomTitleIndex].cardId}`}>
+          {posts.length > 0 && posts[randomTitleIndex].title}
+        </button>
         <button
           onClick={handleTitleNextClick}
           className="mx-1 absolute left-0 bottom-1/2 transform translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full">

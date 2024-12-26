@@ -125,7 +125,7 @@ export function Header() {
               )}
             </nav>
           </div>
-          {/* <WeatherComponent / >  */}
+          {/* <WeatherComponent /> */}
         </div>
       </header>
       <header className="py-3 sm:px-4 w-3/5 mx-auto z-20 border-b border-gray-200">
