@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import PageTemplate from "@/components/PageTemplate";
 import Loading from '@/components/Loading';
+// import CategoryPage from './posts/[category]/page';
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -15,7 +16,8 @@ export default function Home() {
 
   return (
     <div>
-      <PageTemplate category="anasayfa" />
+      {/* <CategoryPage /> */}
+      a
     </div>
   );
 }

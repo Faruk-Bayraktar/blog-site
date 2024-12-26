@@ -41,6 +41,7 @@
   color: rgb(59, 57, 57);
   margin-bottom: 1rem;
   animation: zoomIn 0.5s ease-in-out;
+  margin: 0.5em;
 }
 
 /* Animations */

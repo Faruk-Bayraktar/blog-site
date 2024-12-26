@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { parseStringPromise } from "xml2js";
 import Card from "@/components/Card";
 import Loading from "./Loading";
@@ -9,7 +9,6 @@ import {
   Route,
   Link,
   Routes,
-  BrowserRouter,
 } from "react-router-dom";
 import CardDetail from "../app/CardDetail";
 import {
@@ -19,7 +18,6 @@ import {
   FaArrowDown,
 } from "react-icons/fa";
 import { useParams, useRouter } from "next/navigation";
-import { ThemeProvider } from "styled-components";
 export interface Post {
   cardId: string; // Benzersiz cardId
   title: string;
@@ -33,7 +31,6 @@ interface PageTemplateProps {
 
 export default function PageTemplate({ category }: PageTemplateProps) {
   const { cat } = useParams<{ cat: string }>();
-
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -66,21 +63,15 @@ export default function PageTemplate({ category }: PageTemplateProps) {
           throw new Error("Beklenen formatta veri bulunamadı.");
         }
 
-        // Eğer tek bir `entry` varsa, onu diziye dönüştür
         const items = Array.isArray(entries) ? entries : [entries];
 
         const formattedPosts = items.map((item: any, index: number) => ({
           cardId: `card-${index}`,
-          // title'ın metin olarak işlendiğinden emin olun
           title:
             typeof item.title === "string"
               ? item.title
               : item.title?._ || "Başlık yok",
-
-          // content'in görsel URL'lerini çıkar
           images: extractImageUrls(item.content?._ || ""),
-
-          // content'in saf metin olduğundan emin olun
           content: item.content?._ || "İçerik yok",
         }));
 
@@ -96,8 +87,10 @@ export default function PageTemplate({ category }: PageTemplateProps) {
         setLoading(false);
       }
     }
+
     fetchRSS();
   }, [category]);
+
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -112,8 +105,21 @@ export default function PageTemplate({ category }: PageTemplateProps) {
     let match;
 
     while ((match = imgRegex.exec(content)) !== null) {
-      imgUrls.push(match[1]);
+      let imgUrl = match[1];
+
+      // Örnek: imgix kullanarak kaliteyi düşürme
+      if (imgUrl.includes("imgix.net")) {
+        imgUrl += "?q=30"; // kaliteyi %50'ye düşür
+      }
+
+      // Örnek: Cloudinary kullanarak kaliteyi düşürme
+      if (imgUrl.includes("res.cloudinary.com")) {
+        imgUrl = imgUrl.replace("/upload/", "/upload/q_50/"); // kaliteyi %50'ye düşür
+      }
+
+      imgUrls.push(imgUrl);
     }
+
     return imgUrls;
   }
   if (loading) {
@@ -198,7 +204,6 @@ export default function PageTemplate({ category }: PageTemplateProps) {
             </div>
           }
         />
-
         <Route path="/post/:id" element={<CardDetail posts={posts} />} />
       </Routes>
     </Router>

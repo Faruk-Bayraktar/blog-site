@@ -8,13 +8,22 @@ const nextConfig = {
         source: '/api/rss/:path*',
         destination: 'https://www.ntv.com.tr/:path*',
       },
+    ];
+  },
+  async redirects() {
+    return [
       {
         source: '/',
         destination: '/posts/anasayfa',
+        permanent: false,
+      },
+      {
+        source: '/not-found',
+        destination: '/not-found',
+        permanent: false,
       },
     ];
   },
-
 
   images: {
     domains: ['cdn1.ntv.com.tr'], // Buraya görsel kaynağını ekleyin
