@@ -6,7 +6,7 @@ import { Lock, Search } from "lucide-react";
 import { Facebook, Instagram, Twitter, Linkedin, Github } from './icons';
 import { WeatherComponent } from "./Weather";
 import Loading from "./Loading";
-
+import Image from "next/image";
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [exchangeRates, setExchangeRates] = useState<{ [key: string]: number } | null>(null);
@@ -90,9 +90,13 @@ export function Header() {
         <div className="container flex items-center justify-between mx-auto">
           <div className="flex items-center">
             <a href="/">
-              <span className="self-center text-2xl font-semibold whitespace-nowrap">
-                TFT NEWS
-              </span>
+              <Image
+                src="/logo1.jpg"
+                alt="TFT News Logo"
+                width={120}
+                height={100}
+                className="self-center"
+              />
             </a>
           </div>
           <div className="flex items-center gap-4">
