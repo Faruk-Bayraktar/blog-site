@@ -8,7 +8,9 @@ import { WeatherComponent } from "./Weather";
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [exchangeRates, setExchangeRates] = useState<{ [key: string]: number } | null>(null);
+  const [exchangeRates, setExchangeRates] = useState<{
+    [key: string]: number;
+  } | null>(null);
 
   useEffect(() => {
     const fetchRates = async () => {
@@ -43,7 +45,6 @@ export function Header() {
         const cnyTry = 1.5;
         const rubTry = 0.12;
 
-
         setExchangeRates({
           USD: usdTry,
           EUR: eurTry,
@@ -74,15 +75,37 @@ export function Header() {
     { href: "#", label: "Anketler" },
   ];
   const currencies = [
-    { label: "USD", value: exchangeRates.USD, change: (Math.random() * 2 - 1).toFixed(2) },
-    { label: "EUR", value: exchangeRates.EUR, change: (Math.random() * 2 - 1).toFixed(2) },
-    { label: "GBP", value: exchangeRates.GBP, change: (Math.random() * 2 - 1).toFixed(2) },
-    { label: "JPY", value: exchangeRates.JPY, change: (Math.random() * 2 - 1).toFixed(2) },
-    { label: "CNY", value: exchangeRates.CNY, change: (Math.random() * 2 - 1).toFixed(2) },
-    { label: "RUB", value: exchangeRates.RUB, change: (Math.random() * 2 - 1).toFixed(2) },
+    {
+      label: "USD",
+      value: exchangeRates.USD,
+      change: (Math.random() * 2 - 1).toFixed(2),
+    },
+    {
+      label: "EUR",
+      value: exchangeRates.EUR,
+      change: (Math.random() * 2 - 1).toFixed(2),
+    },
+    {
+      label: "GBP",
+      value: exchangeRates.GBP,
+      change: (Math.random() * 2 - 1).toFixed(2),
+    },
+    {
+      label: "JPY",
+      value: exchangeRates.JPY,
+      change: (Math.random() * 2 - 1).toFixed(2),
+    },
+    {
+      label: "CNY",
+      value: exchangeRates.CNY,
+      change: (Math.random() * 2 - 1).toFixed(2),
+    },
+    {
+      label: "RUB",
+      value: exchangeRates.RUB,
+      change: (Math.random() * 2 - 1).toFixed(2),
+    },
   ];
-
-
 
   return (
     <>
@@ -128,11 +151,20 @@ export function Header() {
         <div className="flex justify-center">
           {currencies.map((currency, index) => (
             <React.Fragment key={currency.label}>
-              {index > 0 && <div className="border-l border-gray-400 h-6 mx-2"></div>}
+              {index > 0 && (
+                <div className="border-l border-gray-400 h-6 mx-2"></div>
+              )}
               <div className="text-sm">
                 <span className="font-bold text-black">{currency.label}: </span>
-                <span className="font-bold text-black">{currency.value.toFixed(2)}</span>
-                <span className={`ml-1 ${parseFloat(currency.change) >= 0 ? "text-green-400" : "text-red-400"}`}>
+                <span className="font-bold text-black">
+                  {currency.value.toFixed(2)}
+                </span>
+                <span
+                  className={`ml-1 ${
+                    parseFloat(currency.change) >= 0
+                      ? "text-green-400"
+                      : "text-red-400"
+                  }`}>
                   ({currency.change}%)
                 </span>
               </div>
@@ -141,6 +173,5 @@ export function Header() {
         </div>
       </header>
     </>
-
   );
 }
