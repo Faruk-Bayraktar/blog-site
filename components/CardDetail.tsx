@@ -1,5 +1,4 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 import parse from "html-react-parser";
 import "./CardDetail.css";
 
@@ -11,17 +10,10 @@ interface Post {
 }
 
 interface CardDetailProps {
-  posts: Post[];
+  post: Post;
 }
 
-const CardDetail: React.FC<CardDetailProps> = ({ posts }) => {
-  const { id } = useParams<{ id: string }>();
-  const post = posts.find((post) => post.cardId === id);
-
-  if (!post) {
-    return <div>Post bulunamadı</div>;
-  }
-
+const CardDetail: React.FC<CardDetailProps> = ({ post }) => {
   const addedImages = new Set<string>();
 
   const contentElements = parse(post.content, {

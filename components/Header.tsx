@@ -5,6 +5,7 @@ import { Button } from './ui/button';
 import { Lock, Search } from "lucide-react";
 import { Facebook, Instagram, Twitter, Linkedin, Github } from './icons';
 import { WeatherComponent } from "./Weather";
+import Loading from "./Loading";
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -36,6 +37,7 @@ export function Header() {
         // const rubResponse = await fetch("https://v6.exchangerate-api.com/v6/76c6f01d23b20ebccadeb8dd/latest/RUB");
         // const rubData = await rubResponse.json();
         // const rubTry = rubData.conversion_rates.TRY;
+
         const usdTry = 10.0;
         const eurTry = 12.0;
         const gbpTry = 14.0;
@@ -58,7 +60,7 @@ export function Header() {
     fetchRates();
   }, []);
 
-  if (!exchangeRates) return <div>Yükleniyor...</div>;
+  if (!exchangeRates) return <Loading />;//bu kod hepsine oluyor. sadece alttaki header loading olsun
 
   const links = [
     { href: '/posts/sondakika', label: 'Son Dakika' },
@@ -114,16 +116,12 @@ export function Header() {
                         {link.label}
                       </a>
                     </Button>
-
                   ))}
                 </ul>
               )}
             </nav>
-
-
           </div>
-          {/* <WeatherComponent /> */}
-
+          {/* <WeatherComponent / >  */}
         </div>
       </header>
       <header className="py-3 sm:px-4 w-3/5 mx-auto z-20 border-b border-gray-200">
