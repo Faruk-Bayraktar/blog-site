@@ -110,7 +110,7 @@ export function Header() {
               ))}
             </nav>
             <nav className="relative">
-              <Button onClick={() => setMenuOpen(!menuOpen)}>Menu</Button>
+              <Button onClick={() => setMenuOpen(!menuOpen)}>Menü</Button>
               {menuOpen && (
                 <ul className="absolute bg-white shadow-md z-50 mt-2 left-0">
                   {links.slice(4).map((link) => (
