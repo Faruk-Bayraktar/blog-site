@@ -1,7 +1,7 @@
 // filepath: /app/api/rss/route.ts
 import { NextRequest, NextResponse } from "next/server";
 
-const RSS_FEEDS: { [key: string]: string } = {
+const RSS_FEEDS: { [key: string]: string } = { //Burada RSS feedlerini tanımlıyoruz.
   ekonomi: "https://www.ntv.com.tr/ekonomi.rss",
   dunya: "https://www.ntv.com.tr/dunya.rss",
   egitim: "https://www.ntv.com.tr/egitim.rss",
@@ -14,10 +14,10 @@ const RSS_FEEDS: { [key: string]: string } = {
 };
 
 export async function GET(req: NextRequest) {
-  const category = req.nextUrl.searchParams.get("category");
+  const category = req.nextUrl.searchParams.get("category"); //Kategori parametresini alıyoruz.
 
   if (!category || !RSS_FEEDS[category]) {
-    return NextResponse.json(
+    return NextResponse.json( //Eğer kategori yoksa veya RSS_FEEDS'de kategori yoksa hata döndürüyoruz.
       { error: "Geçersiz kategori veya RSS URL'si." },
       { status: 400 }
     );
@@ -28,11 +28,8 @@ export async function GET(req: NextRequest) {
     if (!response.ok) {
       throw new Error(`RSS alınamadı: ${response.statusText}`);
     }
-
-    const xmlData = await response.text();
-
-    // Özel karakter hatalarını düzeltelim.
-    const sanitizedData = xmlData.replace(/&(?!amp;|lt;|gt;|quot;|apos;)/g, "&amp;");
+    const xmlData = await response.text(); //RSS verisini alıyoruz.
+    const sanitizedData = xmlData.replace(/&(?!amp;|lt;|gt;|quot;|apos;)/g, "&amp;"); //Özel karakterleri düzeltiyoruz.
 
     return NextResponse.json({ data: sanitizedData }, { status: 200 });
   } catch (error: any) {

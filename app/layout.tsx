@@ -24,9 +24,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <title>TFT News</title>
-        <meta name="description" content="En guncel haberler icin takipte kalin." />
-        <link rel="icon" href="/favicon.ico" />
+        <title>TFT News</title>{/* // Burada sayfamizin basligini belirliyoruz. */}
+        <meta name="description" content="En guncel haberler icin takipte kalin." /> {/*// Burada sayfamizin aciklamasini belirliyoruz. */}
+        <link rel="icon" href="/favicon.ico" /> {/*Burada sayfamizin faviconunu belirliyoruz. */}
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Header />
