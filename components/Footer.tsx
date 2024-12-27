@@ -1,5 +1,11 @@
 import Link from "next/link";
-import { Github, Facebook, Instagram, Twitter, Linkedin } from "@/components/icons";
+import {
+  Github,
+  Facebook,
+  Instagram,
+  Twitter,
+  Linkedin,
+} from "@/components/icons";
 import * as React from "react";
 import { Button } from "./ui/button";
 
@@ -9,11 +15,15 @@ export function Footer() {
       <div className="container mx-auto flex flex-col md:flex-row items-center justify-between">
         <div className="mb-4 md:mb-0">
           <h2 className="text-lg font-bold">TFT News</h2>
-          <p className="text-sm text-gray-400">Stay informed with the latest updates</p>
+          <p className="text-sm text-gray-400">
+            Stay informed with the latest updates
+          </p>
         </div>
 
         <div className="flex space-x-4 mb-4 md:mb-0">
-          <Link href="#" aria-label="Github">
+          <Link
+            href="https://github.com/Faruk-Bayraktar/blog-site"
+            aria-label="Github">
             <Button className="p-2 rounded-full hover:bg-gray-800">
               <Github />
             </Button>
@@ -42,9 +52,15 @@ export function Footer() {
 
         {/* Copyright */}
         <div className="text-sm text-gray-400">
-          <p>Copyright &copy; {new Date().getFullYear()} TFT News. All rights reserved.</p>
           <p>
-            Designed by <Link href="#" className="text-blue-500 hover:underline">TFT News</Link>
+            Copyright &copy; {new Date().getFullYear()} TFT News. All rights
+            reserved.
+          </p>
+          <p>
+            Designed by{" "}
+            <Link href="#" className="text-blue-500 hover:underline">
+              TFT News
+            </Link>
           </p>
         </div>
       </div>

@@ -32,7 +32,7 @@ const PageTemplateContent: React.FC<PageTemplateProps> = ({ category }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [randomTitleIndex, setRandomTitleIndex] = useState(9);
 
-  useEffect(() => {
+  useEffect(() => { // RSS verilerini çekme
     async function fetchRSS() {
       if (!category) {
         setError("Kategori belirtilmedi.");
@@ -41,24 +41,24 @@ const PageTemplateContent: React.FC<PageTemplateProps> = ({ category }) => {
       }
 
       try {
-        const response = await fetch(`/api/rss?category=${category}`);
+        const response = await fetch(`/api/rss?category=${category}`); // RSS API
         if (!response.ok) {
-          throw new Error(`Hata: ${response.statusText}`);
+          throw new Error(`Hata: ${response.statusText}`);  
         }
 
-        const { data: xmlData } = await response.json();
+        const { data: xmlData } = await response.json(); 
 
-        const result = await parseStringPromise(xmlData, {
+        const result = await parseStringPromise(xmlData, { // XML verisini JSON'a çevirme
           explicitArray: false,
           trim: true,
         });
 
-        const entries = result?.feed?.entry;
+        const entries = result?.feed?.entry; 
         if (!entries) {
-          throw new Error("Beklenen formatta veri bulunamadı.");
+          throw new Error("Beklenen formatta veri bulunamadı."); 
         }
 
-        const items = Array.isArray(entries) ? entries : [entries];
+        const items = Array.isArray(entries) ? entries : [entries]; // RSS verilerini diziye çevirme
 
         const formattedPosts = items.map((item: any, index: number) => ({
           cardId: `card-${index}`,
@@ -86,27 +86,27 @@ const PageTemplateContent: React.FC<PageTemplateProps> = ({ category }) => {
     fetchRSS();
   }, [category]);
 
-  useEffect(() => {
+  useEffect(() => { // Başlık değiştirme
     const interval = setInterval(() => {
       setRandomTitleIndex((prevIndex) => (prevIndex + 1) % posts.length);
     }, 10000); // 10 saniyede bir başlık değiştir
     return () => clearInterval(interval);
   }, [posts]);
 
-  function extractImageUrls(content: string): string[] {
+  function extractImageUrls(content: string): string[] { // İçerikten resim URL'lerini çıkarma
     const imgRegex = /<img[^>]+src=["']([^"']+)["']/g;
     const imgUrls: string[] = [];
     let match;
 
-    while ((match = imgRegex.exec(content)) !== null) {
+    while ((match = imgRegex.exec(content)) !== null) { // Resim URL'lerini bulma
       let imgUrl = match[1];
 
-      // Örnek: imgix kullanarak kaliteyi düşürme
+      //imgix kullanarak kaliteyi düşürme
       if (imgUrl.includes("imgix.net")) {
         imgUrl += "?q=30"; // kaliteyi %50'ye düşür
       }
 
-      // Örnek: Cloudinary kullanarak kaliteyi düşürme
+      //Cloudinary kullanarak kaliteyi düşürme
       if (imgUrl.includes("res.cloudinary.com")) {
         imgUrl = imgUrl.replace("/upload/", "/upload/q_50/"); // kaliteyi %50'ye düşür
       }
@@ -124,24 +124,24 @@ const PageTemplateContent: React.FC<PageTemplateProps> = ({ category }) => {
   }
 
   const handlePrevClick = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex === 0 ? 4 : prevIndex - 1));
+    setCurrentImageIndex((prevIndex) => (prevIndex === 0 ? 4 : prevIndex - 1)); // Resimleri değiştirme
   };
 
   const handleNextClick = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex === 4 ? 0 : prevIndex + 1));
+    setCurrentImageIndex((prevIndex) => (prevIndex === 4 ? 0 : prevIndex + 1)); // Resimleri değiştirme
   };
 
   const handleTitlePrevClick = () => {
     setRandomTitleIndex((prevIndex) =>
-      prevIndex === 0 ? posts.length - 1 : prevIndex - 1
+      prevIndex === 0 ? posts.length - 1 : prevIndex - 1 // Başlıkları değiştirme
     );
   };
 
   const handleTitleNextClick = () => {
-    setRandomTitleIndex((prevIndex) => (prevIndex + 1) % posts.length);
+    setRandomTitleIndex((prevIndex) => (prevIndex + 1) % posts.length); 
   };
 
-  const handlePostClick = (cardId: string) => {
+  const handlePostClick = (cardId: string) => { // Post sayfasına yönlendirme
     router.push(`/post/${cardId}`);
   };
 
@@ -149,10 +149,10 @@ const PageTemplateContent: React.FC<PageTemplateProps> = ({ category }) => {
     <div>
       <div className="flex justify-center my-4 items-center relative w-full">
         <div className="relative w-6/12 h-auto mx-2">
-          <div onClick={() => handlePostClick(posts.slice(0, 5)[currentImageIndex].cardId)}>
+          <div onClick={() => handlePostClick(posts.slice(0, 5)[currentImageIndex].cardId)}> 
             <img
-              src={posts.slice(0, 5)[currentImageIndex].images[0]}
-              alt={`Image ${currentImageIndex + 1}`}
+              src={posts.slice(0, 5)[currentImageIndex].images[0]} 
+              alt={`Image ${currentImageIndex + 1}`} 
               className="w-full h-auto"
             />
           </div>
@@ -190,7 +190,7 @@ const PageTemplateContent: React.FC<PageTemplateProps> = ({ category }) => {
         {posts.slice(5).map((post) => (
           <div onClick={() => handlePostClick(post.cardId)} key={post.cardId}>
             <div className="transform transition-transform duration-300 hover:scale-105">
-              <Card title={post.title} images={post.images} />
+              <Card title={post.title} images={post.images} /> 
             </div>
           </div>
         ))}
