@@ -41,21 +41,21 @@ const PageTemplateContent: React.FC<PageTemplateProps> = ({ category }) => {
       }
 
       try {
-        const response = await fetch(`/api/rss?category=${category}`); // RSS API
+        const response = await fetch(`/api/rss?category=${category}`); //Burada rss route.ts dosyasına gidip oradan veri çekiyoruz
         if (!response.ok) {
-          throw new Error(`Hata: ${response.statusText}`);  
+          throw new Error(`Hata: ${response.statusText}`);
         }
 
-        const { data: xmlData } = await response.json(); 
+        const { data: xmlData } = await response.json();
 
         const result = await parseStringPromise(xmlData, { // XML verisini JSON'a çevirme
           explicitArray: false,
           trim: true,
         });
 
-        const entries = result?.feed?.entry; 
+        const entries = result?.feed?.entry;
         if (!entries) {
-          throw new Error("Beklenen formatta veri bulunamadı."); 
+          throw new Error("Beklenen formatta veri bulunamadı.");
         }
 
         const items = Array.isArray(entries) ? entries : [entries]; // RSS verilerini diziye çevirme
@@ -138,7 +138,7 @@ const PageTemplateContent: React.FC<PageTemplateProps> = ({ category }) => {
   };
 
   const handleTitleNextClick = () => {
-    setRandomTitleIndex((prevIndex) => (prevIndex + 1) % posts.length); 
+    setRandomTitleIndex((prevIndex) => (prevIndex + 1) % posts.length);
   };
 
   const handlePostClick = (cardId: string) => { // Post sayfasına yönlendirme
@@ -149,10 +149,10 @@ const PageTemplateContent: React.FC<PageTemplateProps> = ({ category }) => {
     <div>
       <div className="flex justify-center my-4 items-center relative w-full">
         <div className="relative w-6/12 h-auto mx-2">
-          <div onClick={() => handlePostClick(posts.slice(0, 5)[currentImageIndex].cardId)}> 
+          <div onClick={() => handlePostClick(posts.slice(0, 5)[currentImageIndex].cardId)}>
             <img
-              src={posts.slice(0, 5)[currentImageIndex].images[0]} 
-              alt={`Image ${currentImageIndex + 1}`} 
+              src={posts.slice(0, 5)[currentImageIndex].images[0]}
+              alt={`Image ${currentImageIndex + 1}`}
               className="w-full h-auto"
             />
           </div>
@@ -190,7 +190,7 @@ const PageTemplateContent: React.FC<PageTemplateProps> = ({ category }) => {
         {posts.slice(5).map((post) => (
           <div onClick={() => handlePostClick(post.cardId)} key={post.cardId}>
             <div className="transform transition-transform duration-300 hover:scale-105">
-              <Card title={post.title} images={post.images} /> 
+              <Card title={post.title} images={post.images} />
             </div>
           </div>
         ))}

@@ -3,25 +3,29 @@ import React, { useEffect, useState } from "react";
 
 export function WeatherComponent() {
     const [weatherData, setWeatherData] = useState<any>(null); // Hava durumu verisi
-    const [error, setError] = useState<string | null>(null);    // Hata mesajı
+    const [error, setError] = useState<string | null>(null); // Hata mesajı
 
     const fetchWeather = async (latitude: any, longitude: any) => {
         try {
-            const apiKey = "731f833c6f8fd41540eb4abef9bfb903"; // OpenWeatherMap API key 
+            const apiKey = process.env.NEXT_PUBLIC_WEATHER_API_KEY; // API anahtarını çevresel değişkenden al
+            if (!apiKey) {
+                throw new Error("API anahtarı bulunamadı.");
+            }
             const response = await fetch(
                 `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}`
-            ); 
+            );
             if (!response.ok) {
                 throw new Error("API Hatası: Hava durumu alınamadı.");
             }
-            const data = await response.json(); 
+            const data = await response.json();
             setWeatherData(data);
         } catch (err) {
             setError((err as any).message || "Hava durumu alınamadı.");
         }
     };
 
-    const getWeatherIcon = (mainWeather: string) => { // Hava durumu sembolleri
+    const getWeatherIcon = (mainWeather: string) => {
+        // Hava durumu sembolleri
         switch (mainWeather) {
             case "Clear":
                 return "☀️"; // Güneş
@@ -83,7 +87,7 @@ export function WeatherComponent() {
     }
 
     if (!weatherData) {
-        return <div className="weather-loading">Hava durumu yükleniyor...</div>;    
+        return <div className="weather-loading">Hava durumu yükleniyor...</div>;
     }
 
     const temperature = Math.round(weatherData.main.temp); // Sıcaklık yuvarlama
@@ -94,11 +98,11 @@ export function WeatherComponent() {
 
     return (
         <div className="weather-container">
-            <div className="weather-location">{weatherData.name}</div>  {/* Hava durumu konumu */}
-            <div className="weather-temp"> 
+            <div className="weather-location">{weatherData.name}</div>{" "}
+            <div className="weather-temp">
                 {temperature}°C {weatherIcon}
             </div>
-            <div className="weather-description">{weatherDescription}</div> {/* Hava durumu açıklaması */}
+            <div className="weather-description">{weatherDescription}</div>{" "}
         </div>
     );
 }
