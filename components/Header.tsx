@@ -1,62 +1,49 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
-import { Button } from "./ui/button";
+import Link from 'next/link';
+import { Button } from './ui/button';
 import { Lock, Search } from "lucide-react";
-import { Facebook, Instagram, Twitter, Linkedin, Github } from "./icons";
+import { Facebook, Instagram, Twitter, Linkedin, Github } from './icons';
 import { WeatherComponent } from "./Weather";
 import Loading from "./Loading";
 import Image from "next/image";
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [exchangeRates, setExchangeRates] = useState<{
-    [key: string]: number;
-  } | null>(null);
+  const [exchangeRates, setExchangeRates] = useState<{ [key: string]: number } | null>(null);
 
   useEffect(() => {
     const fetchRates = async () => {
       try {
-        const apiKey = process.env.NEXT_PUBLIC_EXCHANGE_API_KEY; // API anahtarını çevresel değişkenden al
-        if (!apiKey) {
-          throw new Error("API anahtarı bulunamadı.");
-        }
+        // const usdResponse = await fetch("https://v6.exchangerate-api.com/v6/76c6f01d23b20ebccadeb8dd/latest/USD");
+        // const usdData = await usdResponse.json();
+        // const usdTry = usdData.conversion_rates.TRY;
 
-        const usdResponse = await fetch(
-          `https://v6.exchangerate-api.com/v6/${apiKey}/latest/USD`
-        );
-        const usdData = await usdResponse.json();
-        const usdTry = usdData.conversion_rates.TRY;
+        // const eurResponse = await fetch("https://v6.exchangerate-api.com/v6/76c6f01d23b20ebccadeb8dd/latest/EUR");
+        // const eurData = await eurResponse.json();
+        // const eurTry = eurData.conversion_rates.TRY;
 
-        const eurResponse = await fetch(
-          `https://v6.exchangerate-api.com/v6/${apiKey}/latest/EUR`
-        );
-        const eurData = await eurResponse.json();
-        const eurTry = eurData.conversion_rates.TRY;
+        // const gbpResponse = await fetch("https://v6.exchangerate-api.com/v6/76c6f01d23b20ebccadeb8dd/latest/GBP");
+        // const gbpData = await gbpResponse.json();
+        // const gbpTry = gbpData.conversion_rates.TRY;
 
-        const gbpResponse = await fetch(
-          `https://v6.exchangerate-api.com/v6/${apiKey}/latest/GBP`
-        );
-        const gbpData = await gbpResponse.json();
-        const gbpTry = gbpData.conversion_rates.TRY;
+        // const jpyResponse = await fetch("https://v6.exchangerate-api.com/v6/76c6f01d23b20ebccadeb8dd/latest/JPY");
+        // const jpyData = await jpyResponse.json();
+        // const jpyTry = jpyData.conversion_rates.TRY;
 
-        const jpyResponse = await fetch(
-          `https://v6.exchangerate-api.com/v6/${apiKey}/latest/JPY`
-        );
-        const jpyData = await jpyResponse.json();
-        const jpyTry = jpyData.conversion_rates.TRY;
+        // const cnyResponse = await fetch("https://v6.exchangerate-api.com/v6/76c6f01d23b20ebccadeb8dd/latest/CNY");
+        // const cnyData = await cnyResponse.json();
+        // const cnyTry = cnyData.conversion_rates.TRY;
 
-        const cnyResponse = await fetch(
-          `https://v6.exchangerate-api.com/v6/${apiKey}/latest/CNY`
-        );
-        const cnyData = await cnyResponse.json();
-        const cnyTry = cnyData.conversion_rates.TRY;
+        // const rubResponse = await fetch("https://v6.exchangerate-api.com/v6/76c6f01d23b20ebccadeb8dd/latest/RUB");
+        // const rubData = await rubResponse.json();
+        // const rubTry = rubData.conversion_rates.TRY;
 
-        const rubResponse = await fetch(
-          `https://v6.exchangerate-api.com/v6/${apiKey}/latest/RUB`
-        );
-        const rubData = await rubResponse.json();
-        const rubTry = rubData.conversion_rates.TRY;
-
+        const usdTry = 10.0;
+        const eurTry = 12.0;
+        const gbpTry = 14.0;
+        const jpyTry = 0.1;
+        const cnyTry = 1.5;
+        const rubTry = 0.12;
         setExchangeRates({
           USD: usdTry,
           EUR: eurTry,
@@ -73,50 +60,28 @@ export function Header() {
     fetchRates();
   }, []);
 
-  if (!exchangeRates) return <Loading />;
+  if (!exchangeRates) return <Loading />;//bu kod hepsine oluyor. sadece alttaki header loading olsun
 
   const links = [
-    { href: "/posts/sondakika", label: "Son Dakika" },
-    { href: "/posts/egitim", label: "Eğitim" },
-    { href: "/posts/ekonomi", label: "Ekonomi" },
-    { href: "/posts/dunya", label: "Dünya" },
-    { href: "/posts/spor", label: "Spor" },
-    { href: "/posts/teknoloji", label: "Teknoloji" },
-    { href: "/posts/saglik", label: "Sağlık" },
-    { href: "/posts/otomobil", label: "Otomobil" },
+    { href: '/posts/sondakika', label: 'Son Dakika' },
+    { href: '/posts/egitim', label: 'Eğitim' },
+    { href: '/posts/ekonomi', label: 'Ekonomi' },
+    { href: '/posts/dunya', label: 'Dünya' },
+    { href: '/posts/spor', label: 'Spor' },
+    { href: '/posts/teknoloji', label: 'Teknoloji' },
+    { href: '/posts/saglik', label: 'Sağlık' },
+    { href: '/posts/otomobil', label: 'Otomobil' },
   ];
 
+
+
   const currencies = [
-    {
-      label: "USD",
-      value: exchangeRates.USD,
-      change: (Math.random() * 2 - 1).toFixed(2),
-    },
-    {
-      label: "EUR",
-      value: exchangeRates.EUR,
-      change: (Math.random() * 2 - 1).toFixed(2),
-    },
-    {
-      label: "GBP",
-      value: exchangeRates.GBP,
-      change: (Math.random() * 2 - 1).toFixed(2),
-    },
-    {
-      label: "JPY",
-      value: exchangeRates.JPY,
-      change: (Math.random() * 2 - 1).toFixed(2),
-    },
-    {
-      label: "CNY",
-      value: exchangeRates.CNY,
-      change: (Math.random() * 2 - 1).toFixed(2),
-    },
-    {
-      label: "RUB",
-      value: exchangeRates.RUB,
-      change: (Math.random() * 2 - 1).toFixed(2),
-    },
+    { label: "USD", value: exchangeRates.USD, change: (Math.random() * 2 - 1).toFixed(2) },
+    { label: "EUR", value: exchangeRates.EUR, change: (Math.random() * 2 - 1).toFixed(2) },
+    { label: "GBP", value: exchangeRates.GBP, change: (Math.random() * 2 - 1).toFixed(2) },
+    { label: "JPY", value: exchangeRates.JPY, change: (Math.random() * 2 - 1).toFixed(2) },
+    { label: "CNY", value: exchangeRates.CNY, change: (Math.random() * 2 - 1).toFixed(2) },
+    { label: "RUB", value: exchangeRates.RUB, change: (Math.random() * 2 - 1).toFixed(2) },
   ];
 
   return (
@@ -138,7 +103,9 @@ export function Header() {
             <nav className="flex flex-row flex-wrap gap-4">
               {links.slice(0, 4).map((link) => (
                 <Button key={link.href}>
-                  <a href={link.href}>{link.label}</a>
+                  <a href={link.href} >
+                    {link.label}
+                  </a>
                 </Button>
               ))}
             </nav>
@@ -147,6 +114,7 @@ export function Header() {
               {menuOpen && (
                 <ul className="absolute bg-white shadow-md z-50 mt-2 left-0">
                   {links.slice(4).map((link) => (
+
                     <Button key={link.href}>
                       <a href={link.href} className="block">
                         {link.label}
@@ -157,7 +125,7 @@ export function Header() {
               )}
             </nav>
           </div>
-          {<WeatherComponent />}
+          {/* <WeatherComponent /> */}
         </div>
       </header>
       <header className="py-3 sm:px-4 w-3/5 mx-auto z-20 border-b border-gray-200">
@@ -173,11 +141,10 @@ export function Header() {
                   {currency.value.toFixed(2)}
                 </span>
                 <span
-                  className={`ml-1 ${
-                    parseFloat(currency.change) >= 0
-                      ? "text-green-400"
-                      : "text-red-400"
-                  }`}>
+                  className={`ml-1 ${parseFloat(currency.change) >= 0
+                    ? "text-green-400"
+                    : "text-red-400"
+                    }`}>
                   ({currency.change}%)
                 </span>
               </div>
